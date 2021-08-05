@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Router, Route } from 'react-router-dom';
+import HomePage from './HomePage.js';
+import { createBrowserHistory as createHistory } from 'history';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import './App.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import 'react-datepicker/dist/react-datepicker.css';
+const history = createHistory();
 
-function App() {
+
+function App({ calendarStore }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router history={history}>
+        <Navbar bg="primary" expand="lg" variant="dark">
+          <Navbar.Brand href="#home">Calendar App</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link href="/">Home</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+        </Navbar>
+      <Route
+        path="/"
+        exact
+        component={props => (
+          <HomePage {...props} calendarStore={calendarStore} />
+        )}
+      /> 
+      </Router>
     </div>
   );
 }
