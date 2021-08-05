@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import Modal from 'react-bootstrap/Modal';
 import CalendarForm from './CalendarForm';
-import { observer } from './mobx-react';
+import { observer } from 'mobx-react';
 import { getCalendar } from './requests';
 const localizer = momentLocalizer(moment);
 
@@ -51,10 +51,45 @@ function HomePage({ calendarStore }) {
     });
 
     return (
-        <div>
-            
+        <div className="page">
+            <Modal show={showAddModal} onHide={hideModals}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add Calendar Event</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <CalendarForm
+                        calendarStore={calendarStore}
+                        calendarEvent={calendarEvent}
+                        onCancel={hideModals.bind(this)}
+                        edit={false}
+                    />
+                </Modal.Body>
+            </Modal>
+            <Modal show={showEditModal} onHide={hideModals}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Calendar Event</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <CalendarForm
+                        calendarStore={calendarStore}
+                        calendarEvent={calendarEvent}
+                        onCancel={hideModals.bind(this)}
+                        edit={true}
+                    />
+                </Modal.Body>
+            </Modal>
+            <Calendar
+                localizer={localizer}
+                events={calendarStore.calendarEvents}
+                startAccessor="start"
+                endAccessor="end"
+                selectable={true}
+                style={{ height: "70vh" }}
+                onSelectSlot={handleSelect}
+                onSelectEvent={handleSelectEvent}
+            />
         </div>
-    )
+    );
 }
 
-export default HomePage;
+export default observer(HomePage);

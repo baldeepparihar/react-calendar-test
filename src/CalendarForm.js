@@ -90,7 +90,7 @@ return(
                 <Form.Control.Feedback type="invalid">{!title}</Form.Control.Feedback>
             </Form.Group>
         </Form.Row>
-        <From.Row>
+        <Form.Row>
             <Form.Group as={Col} md="12" controlId="start">
                 <Form.Label>Start</Form.Label>
                 <br />
@@ -101,7 +101,7 @@ return(
                     onChange={handleStartChange}
                 />
             </Form.Group>
-        </From.Row>
+        </Form.Row>
         <Form.Row>
             <Form.Group as={Col} md="12" controlId="end">
                 <Form.Label>End</Form.Label>
